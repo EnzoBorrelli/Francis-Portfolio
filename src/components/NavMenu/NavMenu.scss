@@ -1,0 +1,64 @@
+@use "../../variables/colors";
+@use "../../variables/fonts";
+
+@font-face {
+  font-family: ducDeBerry;
+  src: url(../../assets/fonts/DucDeBerry.otf);
+}
+@mixin flex($direction, $wrap, $align, $justify) {
+  display: flex;
+  flex-flow: $direction $wrap;
+  align-items: $align;
+  justify-content: $justify;
+}
+.nav {
+  width: 100%;
+  height: auto;
+  @include flex(row, wrap, center, space-between);
+  padding: 0.5rem;
+  color: colors.$black;
+background-color: colors.$white;
+box-shadow: 0 3px 0 0 rgba(colors.$disabled-black, $alpha: 0.1);
+  &-profile {
+    @include flex(row, nowrap, center, flex-start);
+  }
+  &-image {
+    width: 4rem;
+    aspect-ratio: auto 3 / 4;
+  }
+  &-name {
+    font-family: ducDeBerry;
+    font-size: fonts.$font-1r7;
+    padding-top: 0.3rem;
+  }
+  &-menu {
+    @include flex(row, nowrap, center, flex-end);
+    &-links {
+      @include flex(row, nowrap, center, null);
+    }
+  }
+  &-link {
+    font-size: fonts.$font-1r3;
+    margin: 0.5rem;
+    &::after{
+        content: "";
+  display: block;
+  height: 3px;
+  background-color: colors.$primary-color;
+  transform: scale(0, 1);
+  transform-origin: left;
+  transition: transform 0.25s;
+    }
+    &:hover::after{
+        transform: scale(1, 1);
+    }
+  }
+  &-togle-menu {
+    display: none;
+    pointer-events: none;
+  }
+}
+a.active {
+    box-shadow: 0 3px 0 0 colors.$primary-color;
+    color: colors.$disabled-black
+  }
